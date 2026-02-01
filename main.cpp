@@ -1,5 +1,7 @@
 #include <iostream>
 #include <random>
+#include <vector>
+
 using namespace std;
 
 class Reel
@@ -8,7 +10,7 @@ public:
     virtual string spin()
     {
         string reelCharChosen = reelChars[randomNumberGenerator(REEL_MIN,REEL_MAX)];
-        cout << reelCharChosen;
+        //cout << reelCharChosen;
         return (reelCharChosen);
     }
 
@@ -27,7 +29,6 @@ private:
 
     long randomNumberGenerator(double minimum, double maximum)
     {
-
         std::uniform_int_distribution <long> prob(minimum,maximum);
         long randomNumber = prob(e1);
         return(randomNumber);
@@ -39,8 +40,15 @@ private:
 class SlotMachine
 {
 public:
-    bool virtual checkWin();
+    bool virtual checkWin() = 0; //Pure Virtual
+    void virtual displayResults() = 0;
+
+private:
+    void virtual spinReels() = 0;
+
+    vector<Reel> allReels;
 };
+
 
 class ThreeReelSlotMachine: public SlotMachine
 {
@@ -50,8 +58,27 @@ public:
         //
     }
 
+    void displayResults() override
+    {
+        spinReels();
+        for (string spin : reelResults)
+        {
+            cout << spin << " ";
+        }
+    }
+
 private:
-    //
+    Reel a, b, c;
+    vector<string> reelResults;
+    vector<Reel*> allReels = {&a, &b, &c};
+
+    void spinReels() override
+    {
+        for (auto it : allReels)
+        {
+            reelResults.push_back(it -> spin());
+        }
+    }
 };
 
 int main()
@@ -60,5 +87,11 @@ int main()
 
     Reel A;
     A.spin();
+
+    cout << endl;
+
+    ThreeReelSlotMachine Q;
+    Q.displayResults();
+
     return 0;
 }
