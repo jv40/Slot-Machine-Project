@@ -41,44 +41,53 @@ class SlotMachine
 {
 public:
     bool virtual checkWin() = 0; //Pure Virtual
-    void virtual displayResults() = 0;
+
+    //void virtual displayResults() = 0;
+    void displayResults()
+    {
+        spinReels();
+        for (string& spin : reelResults)
+        {
+            cout << spin << " ";
+        }
+    }
+
+protected:
+    vector<Reel*> allReels;
+
+    void spinReels()
+    {
+        for (auto it : allReels) // Reference it, DON'T let it make a copy of a deleted constructor
+        { // Basically, always use auto&
+            reelResults.push_back(it->spin());
+        }
+    }
 
 private:
-    void virtual spinReels() = 0;
+    //void virtual spinReels() = 0;
 
-    vector<Reel> allReels;
+    vector<string> reelResults;
 };
 
 
 class ThreeReelSlotMachine: public SlotMachine
 {
 public:
+    ThreeReelSlotMachine()
+    {
+        allReels = {&a, &b, &c};
+    }
+
     bool checkWin() override
     {
         //
     }
 
-    void displayResults() override
-    {
-        spinReels();
-        for (string spin : reelResults)
-        {
-            cout << spin << " ";
-        }
-    }
-
 private:
     Reel a, b, c;
-    vector<string> reelResults;
-    vector<Reel*> allReels = {&a, &b, &c};
+    // vector<string> reelResults;
+    // vector<Reel*> allReels = {&a, &b, &c};
 
-    void spinReels() override
-    {
-        for (auto it : allReels)
-        {
-            reelResults.push_back(it -> spin());
-        }
-    }
 };
 
 int main()
