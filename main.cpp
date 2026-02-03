@@ -90,6 +90,23 @@ private:
 
 };
 
+class FourReelSlotMachine: public SlotMachine
+{
+public:
+    FourReelSlotMachine()
+    {
+        allReels = {&a, &b, &c, &d};
+    }
+
+    bool checkWin() override
+    {
+        //
+    }
+
+private:
+    Reel a, b, c, d;
+};
+
 int main()
 {
     std::cout << "Hello, World!" << std::endl;
