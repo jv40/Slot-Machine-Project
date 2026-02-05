@@ -16,10 +16,10 @@ public:
 
 private:
     string reelChars[10] = {
-        "\u274C", "\u274C", "\u274C", "\u274C",  // 50% chance
-        "\u2757", "\u2757", "\u2757",               // 30% chance
-        "\u2705", "\u2705",                            // 20% chance
-        "7"                                               // 10% chance
+        "\u274C", "\u274C", "\u274C", "\u274C",  // X Mark        50% chance
+        "\u2757", "\u2757", "\u2757",               // Exclamation   30% chance
+        "\u2705", "\u2705",                            // Check Mark    20% chance
+        "7"                                               // 7             10% chance
     };
     double REEL_MIN = 0;
     double REEL_MAX = 9;
@@ -67,6 +67,7 @@ protected:
 
     void spinReels()
     {
+        reelResults.clear();
         for (auto it : allReels) // Reference it, DON'T let it make a copy of a deleted constructor
         { // Basically, always use auto&
             reelResults.push_back(it->spin());
@@ -75,6 +76,7 @@ protected:
 
     vector<string> reelResults;
     vector<string> checkingResults;
+    string howBigWin;
 private:
     //void virtual spinReels() = 0;
 };
@@ -122,17 +124,63 @@ private:
     Reel a, b, c, d;
 };
 
+void gameLoop(SlotMachine* machine, long& credits)
+{
+    // Game Loop
+    while (credits >= 0)
+    {
+        machine->displayResults();
+
+        if (machine->checkWin())
+        {
+            credits += 10;
+        }
+        else
+        {
+            credits -= 1;
+            //cout << "\nYou lose. -1 credit" << endl;
+        }
+    }
+}
+
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
+    long credits = 0;
+    string numberOfReels;
 
-    Reel A;
-    A.spin();
+    cout << "How many credits do you have?: ";
+    cin >> credits;
+    cout << endl;
+    cout << "How many reels would you like? (3,4,5)" << endl;
+    cout << "Please input an integer value: ";
+    cin >> numberOfReels;
+
+    SlotMachine* machine = nullptr;
+
+    switch (stoi(numberOfReels))
+    {
+        case 3:
+            machine = new ThreeReelSlotMachine;
+            cout << "You have chosen a Three Reel Slot Machine." << endl;
+            break;
+        case 4:
+            machine = new FourReelSlotMachine;
+            cout << "You have chosen a Four Reel Slot Machine." << endl;
+            break;
+
+
+
+        default:
+            machine = new ThreeReelSlotMachine;
+            cout << "Invalid choice. Defaulting to Three Reels..." << endl;
+            break;
+    }
 
     cout << endl;
 
-    ThreeReelSlotMachine Q;
-    Q.displayResults();
+    gameLoop(machine, credits);
+
+    delete[] machine;
 
     return 0;
 }
