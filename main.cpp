@@ -50,6 +50,16 @@ public:
         {
             cout << spin << " ";
         }
+
+        cout << endl;
+        if (checkWin() == true)
+        {
+            cout << "You Win!";
+        }
+        else
+        {
+            cout << "L, you Lost Man";
+        }
     }
 
 protected:
@@ -63,10 +73,10 @@ protected:
         }
     }
 
+    vector<string> reelResults;
+    vector<string> checkingResults;
 private:
     //void virtual spinReels() = 0;
-
-    vector<string> reelResults;
 };
 
 
@@ -80,7 +90,10 @@ public:
 
     bool checkWin() override
     {
-        //
+        //for (auto it : reelResults)
+
+        return (reelResults[0] == reelResults[1] &&
+                reelResults[1] == reelResults[2]);
     }
 
 private:
@@ -100,7 +113,9 @@ public:
 
     bool checkWin() override
     {
-        //
+        return (reelResults[0] == reelResults[1] &&
+                reelResults[1] == reelResults[2] &&
+                reelResults[2] == reelResults[3]);
     }
 
 private:
