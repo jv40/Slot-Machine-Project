@@ -21,6 +21,11 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
+			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30/Modules/CMakeUnixFindMake.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
 			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake"
 		},
 		{
@@ -1223,8 +1228,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/jon/Downloads/vasquezA1/cmake-build-debug",
-		"source" : "/Users/jon/Downloads/vasquezA1"
+		"build" : "/Users/jon/CLionProjects/vasquezA1/cmake-build-debug",
+		"source" : "/Users/jon/CLionProjects/vasquezA1"
 	},
 	"version" : 
 	{

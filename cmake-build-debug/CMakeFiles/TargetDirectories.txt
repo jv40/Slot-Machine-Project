@@ -1,3 +1,3 @@
-/Users/jon/Downloads/vasquezA1/cmake-build-debug/CMakeFiles/vasquezA1.dir
-/Users/jon/Downloads/vasquezA1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/jon/Downloads/vasquezA1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/jon/CLionProjects/vasquezA1/cmake-build-debug/CMakeFiles/vasquezA1.dir
+/Users/jon/CLionProjects/vasquezA1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/jon/CLionProjects/vasquezA1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

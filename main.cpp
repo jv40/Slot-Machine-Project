@@ -4,6 +4,10 @@
 
 using namespace std;
 
+
+std::random_device r; // We seed this?
+std::default_random_engine e1{r()}; // Making random engine seeded with random device r()
+
 class Reel
 {
 public:
@@ -23,9 +27,6 @@ private:
     };
     double REEL_MIN = 0;
     double REEL_MAX = 9;
-
-    std::random_device r; // We seed this?
-    std::default_random_engine e1{r()}; // Making random engine seeded with random device r()
 
     long randomNumberGenerator(double minimum, double maximum)
     {
@@ -63,14 +64,14 @@ public:
     }
 
 protected:
-    vector<Reel*> allReels;
+    vector<Reel> allReels;
 
     void spinReels()
     {
         reelResults.clear();
         for (auto it : allReels) // Reference it, DON'T let it make a copy of a deleted constructor
         { // Basically, always use auto&
-            reelResults.push_back(it->spin());
+            reelResults.push_back(it.spin());
         }
     }
 
@@ -87,7 +88,11 @@ class ThreeReelSlotMachine: public SlotMachine
 public:
     ThreeReelSlotMachine()
     {
-        allReels = {&a, &b, &c};
+        //allReels = {&a, &b, &c};
+
+        allReels.push_back(a);
+        allReels.push_back(b);
+        allReels.push_back(c);
     }
 
     bool checkWin() override
@@ -110,7 +115,12 @@ class FourReelSlotMachine: public SlotMachine
 public:
     FourReelSlotMachine()
     {
-        allReels = {&a, &b, &c, &d};
+        //allReels = {&a, &b, &c, &d};
+
+        allReels.push_back(a);
+        allReels.push_back(b);
+        allReels.push_back(c);
+        allReels.push_back(d);
     }
 
     bool checkWin() override
@@ -180,7 +190,7 @@ int main()
 
     gameLoop(machine, credits);
 
-    delete[] machine;
+    delete machine;
 
     return 0;
 }

@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/jon/Downloads/vasquezA1/cmake-build-debug",
-		"source" : "/Users/jon/Downloads/vasquezA1"
+		"build" : "/Users/jon/CLionProjects/vasquezA1/cmake-build-debug",
+		"source" : "/Users/jon/CLionProjects/vasquezA1"
 	},
 	"version" : 
 	{

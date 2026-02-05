@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/jon/Downloads/vasquezA1 -B /Users/jon/Downloads/vasquezA1/cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /Users/jon/CLionProjects/vasquezA1 -B /Users/jon/CLionProjects/vasquezA1/cmake-build-debug
 -- The C compiler identification is AppleClang 17.0.0.17000013
 -- The CXX compiler identification is AppleClang 17.0.0.17000013
 -- Detecting C compiler ABI info
@@ -11,6 +11,6 @@
 -- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (4.0s)
+-- Configuring done (1.1s)
 -- Generating done (0.0s)
--- Build files have been written to: /Users/jon/Downloads/vasquezA1/cmake-build-debug
+-- Build files have been written to: /Users/jon/CLionProjects/vasquezA1/cmake-build-debug
