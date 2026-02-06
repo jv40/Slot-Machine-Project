@@ -20,7 +20,7 @@ public:
 
 private:
     string reelChars[10] = {
-        "\u274C", "\u274C", "\u274C", "\u274C",  // X Mark        50% chance
+        "\u274C", "\u274C", "\u274C", "\u274C",  // Red X         50% chance
         "\u2757", "\u2757", "\u2757",               // Exclamation   30% chance
         "\u2705", "\u2705",                            // Check Mark    20% chance
         "7"                                               // 7             10% chance
@@ -41,7 +41,37 @@ private:
 class SlotMachine
 {
 public:
-    bool virtual checkWin() = 0; //Pure Virtual
+    bool checkWin()
+    {
+        //for (auto it : reelResults)
+
+        // return (reelResults[0] == reelResults[1] &&
+        //         reelResults[1] == reelResults[2]);
+
+        if (redXMatches.size() >= 3)
+        {
+            howBigWin = "red_x";
+            return (true);
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            howBigWin = "exclamation_mark";
+            return (true);
+        }
+        else if (checkMarkMatches.size() >= 3)
+        {
+            howBigWin = "check_mark";
+            return (true);
+        }
+        else if (sevenMatches.size() >= 3)
+        {
+            howBigWin = "7";
+            return (true);
+        }
+
+        return(false);
+    }
+    void virtual payout() = 0; // Pure Virtual
 
     //void virtual displayResults() = 0;
     void displayResults()
@@ -69,13 +99,45 @@ protected:
     void spinReels()
     {
         reelResults.clear();
-        for (auto it : allReels) // Reference it, DON'T let it make a copy of a deleted constructor
+
+        redXMatches.clear();
+        exclamationMatches.clear();
+        checkMarkMatches.clear();
+        sevenMatches.clear();
+
+        for (auto& it : allReels) // Reference it, DON'T let it make a copy of a deleted constructor
         { // Basically, always use auto&
             reelResults.push_back(it.spin());
         }
+
+        for (auto& spin : reelResults)
+        {
+            if (spin == "\u274C")
+            {
+                redXMatches.push_back('0');
+            }
+            else if (spin == "\u2757")
+            {
+                exclamationMatches.push_back('0');
+            }
+            else if (spin == "\u2705")
+            {
+                checkMarkMatches.push_back('0');
+            }
+            else if (spin == "7")
+            {
+                sevenMatches.push_back('0');
+            }
+        }
     }
 
-    vector<string> reelResults;
+    vector<string> reelResults; //deprecated vector for checking reel results
+
+    vector<char> redXMatches;
+    vector<char> exclamationMatches;
+    vector<char> checkMarkMatches;
+    vector<char> sevenMatches;
+
     vector<string> checkingResults;
     string howBigWin;
 private:
@@ -89,19 +151,19 @@ public:
     ThreeReelSlotMachine()
     {
         //allReels = {&a, &b, &c};
+        //SUPER cursed C++ way of adding things to a vector. Never do this again.
 
         allReels.push_back(a);
         allReels.push_back(b);
         allReels.push_back(c);
     }
 
-    bool checkWin() override
+    void payout() override // I just think override sounds pretty cool
     {
-        //for (auto it : reelResults)
 
-        return (reelResults[0] == reelResults[1] &&
-                reelResults[1] == reelResults[2]);
     }
+
+
 
 private:
     Reel a, b, c;
@@ -123,12 +185,10 @@ public:
         allReels.push_back(d);
     }
 
-    bool checkWin() override
-    {
-        return (reelResults[0] == reelResults[1] &&
-                reelResults[1] == reelResults[2] &&
-                reelResults[2] == reelResults[3]);
-    }
+    void payout() override // I just think override sounds pretty cool
+{
+
+}
 
 private:
     Reel a, b, c, d;
@@ -137,13 +197,13 @@ private:
 void gameLoop(SlotMachine* machine, long& credits)
 {
     // Game Loop
-    while (credits >= 0)
+    while (credits > 0)
     {
         machine->displayResults();
 
         if (machine->checkWin())
         {
-            credits += 10;
+            credits += 2;
         }
         else
         {
