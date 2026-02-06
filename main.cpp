@@ -207,8 +207,6 @@ class FourReelSlotMachine: public SlotMachine
 public:
     FourReelSlotMachine()
     {
-        //allReels = {&a, &b, &c, &d};
-
         allReels.reserve(5);
         allReels.push_back(a);
         allReels.push_back(b);
@@ -234,9 +232,9 @@ public:
         }
         else if (checkMarkMatches.size() >= 3)
         {
-            addPoints = 30;
+            addPoints = 20;
         }
-        else if (checkMarkMatches.size() >= 3)
+        else if (sevenMatches.size() >= 3)
         {
             addPoints = 50;
         }
@@ -244,6 +242,48 @@ public:
 
 private:
     Reel a, b, c, d;
+};
+
+class FiveReelSlotMachine: public SlotMachine
+{
+public:
+    FiveReelSlotMachine()
+    {
+        allReels.reserve(5);
+        allReels.push_back(a);
+        allReels.push_back(b);
+        allReels.push_back(c);
+        allReels.push_back(d);
+    }
+
+    void payout() override
+    {
+        addPoints = 0;
+
+        if (redXMatches.size() >= 3)
+        {
+            addPoints = 5;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 10;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 15;
+        }
+        else if (checkMarkMatches.size() >= 3)
+        {
+            addPoints = 20;
+        }
+        else if (sevenMatches.size() >= 3)
+        {
+            addPoints = 30;
+        }
+    }
+
+private:
+    Reel a, b, c, d, e;
 };
 
 void gameLoop(SlotMachine* machine, long& credits, bool& spinAgain)
@@ -268,18 +308,14 @@ void gameLoop(SlotMachine* machine, long& credits, bool& spinAgain)
         cout << "Credits: " << credits << endl << endl;
         cout << "Spin again? ('y' for yes, 'n' for no):";
         cin >> enteredString;
-        if (enteredString == "y" || enteredString == "ye" || enteredString == "yes")
-        {
-
-        }
-        else
+        if (not (enteredString == "y" || enteredString == "ye" || enteredString == "yes"))
         {
             spinAgain = false;
         }
         cout << "__________________________________" << endl << endl;
     }
 
-    cout << "==================================" << endl << endl;
+    cout << "==================================" << endl;
     cout << "You've run out of credits!" << endl << "Restart the program to play again.";
 }
 
@@ -307,9 +343,10 @@ int main()
             machine = new FourReelSlotMachine;
             cout << "You have chosen a Four Reel Slot Machine." << endl;
             break;
-
-
-
+        case 5:
+            machine = new FiveReelSlotMachine;
+            cout << "You have chosen a Five Reel Slot Machine." << endl;
+            break;
         default:
             machine = new ThreeReelSlotMachine;
             cout << "Invalid choice. Defaulting to Three Reels..." << endl;
