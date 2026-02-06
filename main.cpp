@@ -98,6 +98,7 @@ public:
         {
             cout << "L, you Lost Man";
         }
+        cout << endl;
     }
 
 protected:
@@ -245,10 +246,12 @@ private:
     Reel a, b, c, d;
 };
 
-void gameLoop(SlotMachine* machine, long& credits)
+void gameLoop(SlotMachine* machine, long& credits, bool& spinAgain)
 {
+    string enteredString;
+
     // Game Loop
-    while (credits > 0)
+    while (credits > 0 && spinAgain == true)
     {
         machine->displayResults();
 
@@ -261,7 +264,23 @@ void gameLoop(SlotMachine* machine, long& credits)
             credits -= 5;
             //cout << "\nYou lose. -1 credit" << endl;
         }
+
+        cout << "Credits: " << credits << endl << endl;
+        cout << "Spin again? ('y' for yes, 'n' for no):";
+        cin >> enteredString;
+        if (enteredString == "y" || enteredString == "ye" || enteredString == "yes")
+        {
+
+        }
+        else
+        {
+            spinAgain = false;
+        }
+        cout << "__________________________________" << endl << endl;
     }
+
+    cout << "==================================" << endl << endl;
+    cout << "You've run out of credits!" << endl << "Restart the program to play again.";
 }
 
 int main()
@@ -299,7 +318,8 @@ int main()
 
     cout << endl;
 
-    gameLoop(machine, credits);
+    bool spinAgain = true;
+    gameLoop(machine, credits, spinAgain);
 
     delete machine;
 
