@@ -127,7 +127,7 @@ public:
         }
         else
         {
-            cout << "L, you Lost Man";
+            cout << "You Lost...";
         }
         cout << endl;
     }

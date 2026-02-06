@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/vasquezA1.dir/main.cpp.o"
-  "CMakeFiles/vasquezA1.dir/main.cpp.o.d"
+  "CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o"
+  "CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o.d"
   "vasquezA1"
   "vasquezA1.pdb"
 )

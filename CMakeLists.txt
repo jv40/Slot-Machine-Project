@@ -3,4 +3,4 @@ project(vasquezA1)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(vasquezA1 main.cpp)
+add_executable(vasquezA1 vasquezMain.cpp)

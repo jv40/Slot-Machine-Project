@@ -129,29 +129,29 @@ vasquezA1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vasquezA1.dir/build.make CMakeFiles/vasquezA1.dir/build
 .PHONY : vasquezA1/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+vasquezMain.o: vasquezMain.cpp.o
+.PHONY : vasquezMain.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vasquezA1.dir/build.make CMakeFiles/vasquezA1.dir/main.cpp.o
-.PHONY : main.cpp.o
+vasquezMain.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vasquezA1.dir/build.make CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o
+.PHONY : vasquezMain.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+vasquezMain.i: vasquezMain.cpp.i
+.PHONY : vasquezMain.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vasquezA1.dir/build.make CMakeFiles/vasquezA1.dir/main.cpp.i
-.PHONY : main.cpp.i
+vasquezMain.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vasquezA1.dir/build.make CMakeFiles/vasquezA1.dir/vasquezMain.cpp.i
+.PHONY : vasquezMain.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+vasquezMain.s: vasquezMain.cpp.s
+.PHONY : vasquezMain.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vasquezA1.dir/build.make CMakeFiles/vasquezA1.dir/main.cpp.s
-.PHONY : main.cpp.s
+vasquezMain.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vasquezA1.dir/build.make CMakeFiles/vasquezA1.dir/vasquezMain.cpp.s
+.PHONY : vasquezMain.cpp.s
 
 # Help Target
 help:
@@ -162,9 +162,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... vasquezA1"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... vasquezMain.o"
+	@echo "... vasquezMain.i"
+	@echo "... vasquezMain.s"
 .PHONY : help
 
 

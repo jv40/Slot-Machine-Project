@@ -69,28 +69,28 @@ include CMakeFiles/vasquezA1.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/vasquezA1.dir/flags.make
 
-CMakeFiles/vasquezA1.dir/main.cpp.o: CMakeFiles/vasquezA1.dir/flags.make
-CMakeFiles/vasquezA1.dir/main.cpp.o: /Users/jon/CLionProjects/vasquezA1/main.cpp
-CMakeFiles/vasquezA1.dir/main.cpp.o: CMakeFiles/vasquezA1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/jon/CLionProjects/vasquezA1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/vasquezA1.dir/main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vasquezA1.dir/main.cpp.o -MF CMakeFiles/vasquezA1.dir/main.cpp.o.d -o CMakeFiles/vasquezA1.dir/main.cpp.o -c /Users/jon/CLionProjects/vasquezA1/main.cpp
+CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o: CMakeFiles/vasquezA1.dir/flags.make
+CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o: /Users/jon/CLionProjects/vasquezA1/vasquezMain.cpp
+CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o: CMakeFiles/vasquezA1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/jon/CLionProjects/vasquezA1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o -MF CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o.d -o CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o -c /Users/jon/CLionProjects/vasquezA1/vasquezMain.cpp
 
-CMakeFiles/vasquezA1.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vasquezA1.dir/main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jon/CLionProjects/vasquezA1/main.cpp > CMakeFiles/vasquezA1.dir/main.cpp.i
+CMakeFiles/vasquezA1.dir/vasquezMain.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/vasquezA1.dir/vasquezMain.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/jon/CLionProjects/vasquezA1/vasquezMain.cpp > CMakeFiles/vasquezA1.dir/vasquezMain.cpp.i
 
-CMakeFiles/vasquezA1.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vasquezA1.dir/main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jon/CLionProjects/vasquezA1/main.cpp -o CMakeFiles/vasquezA1.dir/main.cpp.s
+CMakeFiles/vasquezA1.dir/vasquezMain.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/vasquezA1.dir/vasquezMain.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/jon/CLionProjects/vasquezA1/vasquezMain.cpp -o CMakeFiles/vasquezA1.dir/vasquezMain.cpp.s
 
 # Object files for target vasquezA1
 vasquezA1_OBJECTS = \
-"CMakeFiles/vasquezA1.dir/main.cpp.o"
+"CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o"
 
 # External object files for target vasquezA1
 vasquezA1_EXTERNAL_OBJECTS =
 
-vasquezA1: CMakeFiles/vasquezA1.dir/main.cpp.o
+vasquezA1: CMakeFiles/vasquezA1.dir/vasquezMain.cpp.o
 vasquezA1: CMakeFiles/vasquezA1.dir/build.make
 vasquezA1: CMakeFiles/vasquezA1.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/jon/CLionProjects/vasquezA1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable vasquezA1"
