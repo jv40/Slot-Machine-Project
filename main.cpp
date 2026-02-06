@@ -4,13 +4,18 @@
 
 using namespace std;
 
-
 std::random_device r; // We seed this?
 std::default_random_engine e1{r()}; // Making random engine seeded with random device r()
 
 class Reel
 {
 public:
+    //======================== Spin (a single reel) ==========================
+    /*
+     * PRE:     0 <= REEL_MIN < REEL_MAX
+     * POST:    random number between REEL_MIN and REEL_MAX generated
+     * RETURN:  reelCharChosen (the random character that was spun)
+     */
     virtual string spin()
     {
         string reelCharChosen = reelChars[randomNumberGenerator(REEL_MIN,REEL_MAX)];
@@ -28,6 +33,12 @@ private:
     double REEL_MIN = 0;
     double REEL_MAX = 9;
 
+    //======================== Generate Random Number ==========================
+    /*
+     * PRE:     0 <= minimum < maximum
+     * POST:    random number between minimum and maximum generated
+     * RETURN:  long randomNumber
+     */
     long randomNumberGenerator(double minimum, double maximum)
     {
         std::uniform_int_distribution <long> prob(minimum,maximum);
@@ -41,20 +52,28 @@ private:
 class SlotMachine
 {
 public:
+    short addPoints;
+
+    //======================== Virtual Destructor ==========================
+    /*
+     * PRE:     SlotMachine object exists
+     * POST:    each derived object and associated memory gets deleted
+     * RETURN:  n/a
+     */
     virtual ~SlotMachine()
     {
         // EXTREMELY Important, without this then I get a memory leak because delete machine only deletes the slot
         // machine object and nothing that comes with the derived objects like Reel a, b, and c
-    };
-    short addPoints;
+    }
 
+    //======================== Check Win ==========================
+    /*
+     * PRE:     reelResults vector populated with spin results
+     * POST:    determines if the player has won or not and which symbol the player has won with
+     * RETURN:  bool (true if the player has won, false if the player has lost); howBigWin gets set to the winning symbol
+     */
     bool checkWin()
     {
-        //for (auto it : reelResults)
-
-        // return (reelResults[0] == reelResults[1] &&
-        //         reelResults[1] == reelResults[2]);
-
         if (redXMatches.size() >= 3)
         {
             howBigWin = "red_x";
@@ -78,9 +97,21 @@ public:
 
         return(false);
     }
+
+    //======================== Payout (Pure Virtual) ==========================
+    /*
+     * PRE:     derived class has to implement this
+     * POST:    calculates payout based on the winning symbol and number of reels
+     * RETURN:  addPoints is set to the amount of points that should be won for a given winning symbol
+     */
     void virtual payout() = 0; // Pure Virtual
 
-    //void virtual displayResults() = 0;
+    //======================== Display Results ==========================
+    /*
+     * PRE:     allReels vector populated with Reel objects
+     * POST:    spins all reels, displays results, shows win/loss message
+     * RETURN:  n/a
+     */
     void displayResults()
     {
         spinReels();
@@ -102,12 +133,26 @@ public:
     }
 
 protected:
-    vector<Reel> allReels;
+    vector<Reel> allReels; //Vector of Reel objects to store a slot machine's reels
+    vector<string> reelResults; //Vector of strings to store the symbols of each spin
 
+    //The following are all vectors used to track how many of each symbol appear on a given reel
+    vector<char> redXMatches;
+    vector<char> exclamationMatches;
+    vector<char> checkMarkMatches;
+    vector<char> sevenMatches;
+
+    string howBigWin; //Stores a string of what particular symbol got 3 or more matches on a given spin of a slot machine
+
+    //======================== Spin Reels ==========================
+    /*
+     * PRE:     allReels vector populated with Reel objects
+     * POST:    all reels spun, results stored, number of matching symbols calculated, payout calculated
+     * RETURN:  n/a
+     */
     void spinReels()
     {
         reelResults.clear();
-
         redXMatches.clear();
         exclamationMatches.clear();
         checkMarkMatches.clear();
@@ -140,86 +185,42 @@ protected:
 
         payout();
     }
-
-    vector<string> reelResults;
-
-    vector<char> redXMatches;
-    vector<char> exclamationMatches;
-    vector<char> checkMarkMatches;
-    vector<char> sevenMatches;
-
-    vector<string> checkingResults;
-    string howBigWin;
-private:
-    //void virtual spinReels() = 0;
 };
 
 
 class ThreeReelSlotMachine: public SlotMachine
 {
 public:
+
+    //======================== Three Reel Constructor ==========================
+    /*
+     * PRE:     n/a
+     * POST:    ThreeReelSlotMachine created with 3 reels added to allReels vector
+     * RETURN:  n/a
+     */
     ThreeReelSlotMachine()
     {
         //allReels = {&a, &b, &c};
         //SUPER cursed C++ way of adding things to a vector. Never do this again.
 
-        allReels.reserve(5);
         allReels.push_back(a);
         allReels.push_back(b);
         allReels.push_back(c);
     }
 
+    //======================== Payout (Three Reels) ==========================
+    /*
+     * PRE:     n/a
+     * POST:    calculates payout based on the winning symbol and number of reels,
+     *          addPoints is set to the amount of points that should be won for a given winning symbol
+     * RETURN:  n/a
+     */
     void payout() override // I just think override sounds pretty cool
     {
         addPoints = 0;
 
         if (redXMatches.size() >= 3)
         {
-            addPoints = 3;
-        }
-        else if (exclamationMatches.size() >= 3)
-        {
-            addPoints = 5;
-        }
-        else if (exclamationMatches.size() >= 3)
-        {
-            addPoints = 10;
-        }
-        else if (checkMarkMatches.size() >= 3)
-        {
-            addPoints = 20;
-        }
-        else if (checkMarkMatches.size() >= 3)
-        {
-            addPoints = 30;
-        }
-    }
-
-private:
-    Reel a, b, c;
-    // vector<string> reelResults;
-    // vector<Reel*> allReels = {&a, &b, &c};
-
-};
-
-class FourReelSlotMachine: public SlotMachine
-{
-public:
-    FourReelSlotMachine()
-    {
-        allReels.reserve(5);
-        allReels.push_back(a);
-        allReels.push_back(b);
-        allReels.push_back(c);
-        allReels.push_back(d);
-    }
-
-    void payout() override
-    {
-        addPoints = 0;
-
-        if (redXMatches.size() >= 3)
-        {
             addPoints = 5;
         }
         else if (exclamationMatches.size() >= 3)
@@ -232,30 +233,101 @@ public:
         }
         else if (checkMarkMatches.size() >= 3)
         {
-            addPoints = 20;
+            addPoints = 40;
         }
-        else if (sevenMatches.size() >= 3)
+        else if (checkMarkMatches.size() >= 3)
         {
             addPoints = 50;
         }
     }
 
 private:
-    Reel a, b, c, d;
+    Reel a, b, c; //Instantiate reels used for slot machine
 };
 
-class FiveReelSlotMachine: public SlotMachine
+class FourReelSlotMachine: public SlotMachine
 {
 public:
-    FiveReelSlotMachine()
+
+    //======================== Four Reel Constructor ==========================
+    /*
+     * PRE:     n/a
+     * POST:    FourReelSlotMachine created with 4 reels added to allReels vector
+     * RETURN:  n/a
+     */
+    FourReelSlotMachine()
     {
-        allReels.reserve(5);
         allReels.push_back(a);
         allReels.push_back(b);
         allReels.push_back(c);
         allReels.push_back(d);
     }
 
+    //======================== Payout (Four Reels) ==========================
+    /*
+     * PRE:     n/a
+     * POST:    calculates payout based on the winning symbol and number of reels,
+     *          addPoints is set to the amount of points that should be won for a given winning symbol
+     * RETURN:  n/a
+     */
+    void payout() override
+    {
+        addPoints = 0;
+
+        if (redXMatches.size() >= 3)
+        {
+            addPoints = 5;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 10;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 20;
+        }
+        else if (checkMarkMatches.size() >= 3)
+        {
+            addPoints = 30;
+        }
+        else if (sevenMatches.size() >= 3)
+        {
+            addPoints = 40;
+        }
+    }
+    //It was at this point I realized I didn't calculate an actual "JACKPOT" amount...
+    //I would basically just add a lot more to this if-else ladder to achieve the proper logic
+
+private:
+    Reel a, b, c, d; //Instantiate reels used for slot machine
+};
+
+class FiveReelSlotMachine: public SlotMachine
+{
+public:
+
+    //======================== Five Reel Constructor ==========================
+    /*
+     * PRE:     n/a
+     * POST:    FiveReelSlotMachine created with 5 reels added to allReels vector
+     * RETURN:  n/a
+     */
+    FiveReelSlotMachine()
+    {
+        allReels.push_back(a);
+        allReels.push_back(b);
+        allReels.push_back(c);
+        allReels.push_back(d);
+        allReels.push_back(e);
+    }
+
+    //======================== Payout (Five Reels) ==========================
+    /*
+     * PRE:     n/a
+     * POST:    calculates payout based on the winning symbol and number of reels,
+     *          addPoints is set to the amount of points that should be won for a given winning symbol
+     * RETURN:  n/a
+     */
     void payout() override
     {
         addPoints = 0;
@@ -283,12 +355,19 @@ public:
     }
 
 private:
-    Reel a, b, c, d, e;
+    Reel a, b, c, d, e; //Instantiate reels used for slot machine
 };
 
+//======================== Game Loop ==========================
+/*
+ * PRE:     SlotMachine pointer pointing to SlotMachine derived object, credits > 0, spinAgain = true
+ * POST:    game played until credits run out or player chooses to stop, credits modified based on winning and losing,
+ *          spinAgain modified through player input
+ * RETURN:  n/a
+ */
 void gameLoop(SlotMachine* machine, long& credits, bool& spinAgain)
 {
-    string enteredString;
+    string enteredString; //User-inputted string to store whether or not the user wants to play again
 
     // Game Loop
     while (credits > 0 && spinAgain == true)
@@ -319,10 +398,18 @@ void gameLoop(SlotMachine* machine, long& credits, bool& spinAgain)
     cout << "You've run out of credits!" << endl << "Restart the program to play again.";
 }
 
+//======================== Main ==========================
+/*
+ * PRE:     n/a
+ * POST:    my code runs! you make a slot machine and set how many reels and how many credits you have, and you start
+ *          gambling!
+ * RETURN:  0
+ */
 int main()
 {
-    long credits = 0;
-    string numberOfReels;
+    long credits = 0; //User-inputted amount of credits to be added to and detrimented based upon winnings during runtime
+    string numberOfReels; //User-inputted amount of reels to create a slot machine with
+    bool spinAgain = true; //User-inputted value of whether they want to continue playing or not
 
     cout << "How many credits do you have?: ";
     cin >> credits;
@@ -331,7 +418,7 @@ int main()
     cout << "Please input an integer value: ";
     cin >> numberOfReels;
 
-    SlotMachine* machine = nullptr;
+    SlotMachine* machine = nullptr; //SlotMachine object pointer created before user prompt creates derived SlotMachine object
 
     switch (stoi(numberOfReels))
     {
@@ -355,10 +442,10 @@ int main()
 
     cout << endl;
 
-    bool spinAgain = true;
     gameLoop(machine, credits, spinAgain);
 
-    delete machine;
+    delete machine; //Freeing up allocated memory to prevent memory leaks
+    //I was lowkey plagued by memory leaks during this assignment
 
     return 0;
 }
