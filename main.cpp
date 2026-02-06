@@ -41,6 +41,13 @@ private:
 class SlotMachine
 {
 public:
+    virtual ~SlotMachine()
+    {
+        // EXTREMELY Important, without this then I get a memory leak because delete machine only deletes the slot
+        // machine object and nothing that comes with the derived objects like Reel a, b, and c
+    };
+    short addPoints;
+
     bool checkWin()
     {
         //for (auto it : reelResults)
@@ -129,9 +136,11 @@ protected:
                 sevenMatches.push_back('0');
             }
         }
+
+        payout();
     }
 
-    vector<string> reelResults; //deprecated vector for checking reel results
+    vector<string> reelResults;
 
     vector<char> redXMatches;
     vector<char> exclamationMatches;
@@ -153,6 +162,7 @@ public:
         //allReels = {&a, &b, &c};
         //SUPER cursed C++ way of adding things to a vector. Never do this again.
 
+        allReels.reserve(5);
         allReels.push_back(a);
         allReels.push_back(b);
         allReels.push_back(c);
@@ -160,10 +170,29 @@ public:
 
     void payout() override // I just think override sounds pretty cool
     {
+        addPoints = 0;
 
+        if (redXMatches.size() >= 3)
+        {
+            addPoints = 3;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 5;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 10;
+        }
+        else if (checkMarkMatches.size() >= 3)
+        {
+            addPoints = 20;
+        }
+        else if (checkMarkMatches.size() >= 3)
+        {
+            addPoints = 30;
+        }
     }
-
-
 
 private:
     Reel a, b, c;
@@ -179,16 +208,38 @@ public:
     {
         //allReels = {&a, &b, &c, &d};
 
+        allReels.reserve(5);
         allReels.push_back(a);
         allReels.push_back(b);
         allReels.push_back(c);
         allReels.push_back(d);
     }
 
-    void payout() override // I just think override sounds pretty cool
-{
+    void payout() override
+    {
+        addPoints = 0;
 
-}
+        if (redXMatches.size() >= 3)
+        {
+            addPoints = 5;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 10;
+        }
+        else if (exclamationMatches.size() >= 3)
+        {
+            addPoints = 15;
+        }
+        else if (checkMarkMatches.size() >= 3)
+        {
+            addPoints = 30;
+        }
+        else if (checkMarkMatches.size() >= 3)
+        {
+            addPoints = 50;
+        }
+    }
 
 private:
     Reel a, b, c, d;
@@ -203,11 +254,11 @@ void gameLoop(SlotMachine* machine, long& credits)
 
         if (machine->checkWin())
         {
-            credits += 2;
+            credits += machine -> addPoints;
         }
         else
         {
-            credits -= 1;
+            credits -= 5;
             //cout << "\nYou lose. -1 credit" << endl;
         }
     }
